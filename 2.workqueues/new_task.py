@@ -1,9 +1,14 @@
 import re
 import sys
 import pika
+import os
+import dotenv
+
+dotenv.load_dotenv()  # take environment variables from .env.
+host = os.getenv("HOST")
 
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='192.168.1.4'))
+    pika.ConnectionParameters(host=host))
 channel = connection.channel()
 
 channel.queue_declare(queue='hello')
