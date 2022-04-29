@@ -2,11 +2,14 @@
 import os
 import sys
 import pika
+import dotenv
 
+dotenv.load_dotenv()
+
+host = os.getenv("HOST")
 
 def main():
-    connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host='192.168.1.4'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
